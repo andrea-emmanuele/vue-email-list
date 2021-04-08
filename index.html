@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>email list ajax</title>
+</head>
+<body>
+    <section id="root">
+        <ol>
+            <li v-for="mail in mails"> {{ mail }}</li>
+        </ol>
+    </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js" integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ==" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el: "#root",
+            data: {
+                mails: []
+            },
+            methods: {
+                get: function () {
+                    console.log(this.mails);
+                    for (let i = 0; i < 10; i++) {
+                        axios
+                            .get("https://flynn.boolean.careers/exercises/api/random/mail")
+                            .then(response => this.mails.push(response.data.response))
+                    }
+                }
+            },
+            mounted: function () {
+                this.get();
+            }
+        })
+    </script>
+</body>
+</html>
